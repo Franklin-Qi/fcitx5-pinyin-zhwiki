@@ -11,13 +11,40 @@ $ sudo pacman -S fcitx5-pinyin-zhwiki
 
 $ rime-install felixonmars/fcitx5-pinyin-zhwiki
 
-- Others:
+- Others (Ubuntu 2304, and so on):
 
+1. 检查中文环境
+在ubuntu 2304 设置中打开 “区域与语言” - “管理已安装的语言” - “菜单和窗口的语言” 加上 “汉语中国”
+
+2. 安装 fcitx5, fcitx4+sogou 输入法会一直闪
+主要是安装Fcitx5主程序、中文输入法引擎、图像界面相关。
+
+$ sudo apt install fcitx5 fcitx5-chinese-addons fcitx5-frontend-gtk4 fcitx5-frontend-qt5
+
+3. 安装中文词库
 Download latest version of "zhwiki.dict" from:
 https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases
 
 Copy into ~/.local/share/fcitx5/pinyin/dictionaries/ (create the folder if it does not exist)
 
+4. 配置为默认输入法
+通过 im-config 选择 Fcitx5 为默认输入法。
+
+5. 设置环境变量（非必需）
+在 ~/.bash_profile 中输入以下内容：
+```shell
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+```
+
+6. 开机自启动
+安装 `gnome-tweaks` 将 Fcitx5 添加到开机启动程序列表中。
+
+7. Fcitx 配置
+可以通过搜索 “Fcitx配置”、命令行 `fcitx5-configtool` 进行设置。将 “键盘-英语（美国）”放在首位，“拼音”放在第二位，其他中文输入法放在其他位。
+
+注：不要删除 ibus 输入法，否则会有问题。
 
 
 Build Requirements:
